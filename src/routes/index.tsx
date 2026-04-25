@@ -37,7 +37,7 @@ const TOTAL = slideList.length;
 
 function Presentation() {
   return (
-    <main className="snap-y snap-mandatory h-screen overflow-y-scroll scrollbar-hide">
+    <main id="slides-container" className="snap-y snap-mandatory h-screen overflow-hidden scrollbar-hide" tabIndex={0}>
       <Navigation />
 
       {/* 1. COVER */}
