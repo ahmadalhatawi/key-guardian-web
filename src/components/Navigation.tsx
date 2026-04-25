@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronUp, ChevronDown } from "lucide-react";
 
 const slides = [
   { id: "cover", label: "Cover" },
@@ -12,6 +13,7 @@ const slides = [
 export function Navigation() {
   const [active, setActive] = useState("cover");
   const [open, setOpen] = useState(false);
+  const animatingRef = useRef(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,13 +31,82 @@ export function Navigation() {
     return () => observer.disconnect();
   }, []);
 
-  const goTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const goToIndex = (idx: number) => {
+    if (idx < 0 || idx >= slides.length) return;
+    const el = document.getElementById(slides[idx].id);
+    if (!el) return;
+    animatingRef.current = true;
+    el.scrollIntoView({ behavior: "smooth" });
     setOpen(false);
+    window.setTimeout(() => {
+      animatingRef.current = false;
+    }, 700);
+  };
+
+  const goTo = (id: string) => {
+    const idx = slides.findIndex((s) => s.id === id);
+    goToIndex(idx);
   };
 
   const activeIndex = slides.findIndex((s) => s.id === active);
   const progress = ((activeIndex + 1) / slides.length) * 100;
+
+  // Disable wheel + touch scroll, enable arrow keys
+  useEffect(() => {
+    const container = document.getElementById("slides-container");
+    if (!container) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    let touchStartY = 0;
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (animatingRef.current) return;
+      const delta = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(delta) < 40) return;
+      const idx = slides.findIndex((s) => s.id === active);
+      goToIndex(delta > 0 ? idx + 1 : idx - 1);
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (animatingRef.current) return;
+      const idx = slides.findIndex((s) => s.id === active);
+      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === "ArrowRight") {
+        e.preventDefault();
+        goToIndex(idx + 1);
+      } else if (e.key === "ArrowUp" || e.key === "PageUp" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        goToIndex(idx - 1);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        goToIndex(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        goToIndex(slides.length - 1);
+      }
+    };
+
+    container.addEventListener("wheel", preventScroll, { passive: false });
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchmove", onTouchMove, { passive: false });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      container.removeEventListener("wheel", preventScroll);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [active]);
 
   return (
     <>
@@ -127,9 +198,29 @@ export function Navigation() {
         </motion.div>
       )}
 
+      {/* Up / Down arrow buttons */}
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-2">
+        <button
+          onClick={() => goToIndex(activeIndex - 1)}
+          disabled={activeIndex <= 0}
+          aria-label="Previous slide"
+          className="glass rounded-xl p-3 glow-border hover:bg-neon/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <ChevronUp className="h-5 w-5 text-neon" />
+        </button>
+        <button
+          onClick={() => goToIndex(activeIndex + 1)}
+          disabled={activeIndex >= slides.length - 1}
+          aria-label="Next slide"
+          className="glass rounded-xl p-3 glow-border hover:bg-neon/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <ChevronDown className="h-5 w-5 text-neon" />
+        </button>
+      </div>
+
       {/* Bottom hint */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 text-[10px] font-mono tracking-widest text-muted-foreground hidden md:block">
-        SCROLL · {String(activeIndex + 1).padStart(2, "0")} OF {String(slides.length).padStart(2, "0")}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 text-[10px] font-mono tracking-widest text-muted-foreground hidden md:block">
+        ↑ ↓ KEYS · {String(activeIndex + 1).padStart(2, "0")} OF {String(slides.length).padStart(2, "0")}
       </div>
     </>
   );
