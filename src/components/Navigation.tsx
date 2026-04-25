@@ -3,13 +3,10 @@ import { motion } from "framer-motion";
 
 const slides = [
   { id: "cover", label: "Cover" },
-  { id: "abstract", label: "Abstract" },
-  { id: "introduction", label: "Introduction" },
-  { id: "methodology", label: "Methodology" },
+  { id: "definition", label: "What is it?" },
+  { id: "how", label: "How it works" },
   { id: "types", label: "Types" },
-  { id: "results", label: "Results" },
-  { id: "conclusion", label: "Conclusion" },
-  { id: "references", label: "References" },
+  { id: "demo", label: "Live Demo" },
 ];
 
 export function Navigation() {
