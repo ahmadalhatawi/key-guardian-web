@@ -28,6 +28,9 @@ import diagramImg from "@/assets/keylogger-diagram.png";
 import shieldImg from "@/assets/security-shield.png";
 import attackerImg from "@/assets/attacker-flow.png";
 import architectureImg from "@/assets/keylogger-architecture.png";
+import teamAhmad from "@/assets/team-ahmad.png";
+import teamIbraheem from "@/assets/team-ibraheem.png";
+import teamSupervisor from "@/assets/team-supervisor.png";
 
 export const Route = createFileRoute("/")({
   component: Presentation,
