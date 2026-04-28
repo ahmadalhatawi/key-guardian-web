@@ -7,6 +7,7 @@ const slides = [
   { id: "definition", label: "What is it?" },
   { id: "how", label: "How it works" },
   { id: "types", label: "Types" },
+  { id: "team", label: "Our Team" },
   { id: "demo", label: "Live Demo" },
 ];
 
