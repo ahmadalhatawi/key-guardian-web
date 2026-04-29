@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 const slides = [
+  { id: "team", label: "Our Team" },
   { id: "cover", label: "Cover" },
   { id: "definition", label: "What is it?" },
   { id: "how", label: "How it works" },
   { id: "types", label: "Types" },
-  { id: "team", label: "Our Team" },
   { id: "demo", label: "Live Demo" },
 ];
 
 export function Navigation() {
-  const [active, setActive] = useState("cover");
+  const [active, setActive] = useState("team");
   const [open, setOpen] = useState(false);
   const animatingRef = useRef(false);
 
