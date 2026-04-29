@@ -43,9 +43,112 @@ function Presentation() {
     <main id="slides-container" className="snap-y snap-mandatory h-screen overflow-hidden scrollbar-hide" tabIndex={0}>
       <Navigation />
 
-      {/* 1. COVER */}
-      <Slide id="cover">
+      {/* 1. TEAM (opening) */}
+      <Slide id="team">
         <SlideNumber n={1} total={TOTAL} />
+        <div>
+          <SectionLabel>00 · Team</SectionLabel>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+            Our <span className="gradient-text">team</span>.
+          </h2>
+          <p className="text-muted-foreground text-lg mb-12">
+            Hebron University · Faculty of IT · 2026
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {[
+              { name: "Ahmad Jum'a", role: "Developer", img: teamAhmad },
+              { name: "Ibraheem Jawabreh", role: "Developer", img: teamIbraheem },
+            ].map((m, i) => (
+              <motion.div
+                key={m.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.15 }}
+                className="glass rounded-2xl p-8 flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden"
+              >
+                {/* animated background blobs */}
+                <motion.div
+                  aria-hidden
+                  className="absolute -top-16 -left-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl"
+                  animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  aria-hidden
+                  className="absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
+                  animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                <div className="relative mb-5">
+                  {/* rotating neon ring */}
+                  <motion.div
+                    aria-hidden
+                    className="absolute -inset-5 rounded-full border border-neon/30"
+                    style={{ borderStyle: "dashed" }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.div
+                    aria-hidden
+                    className="absolute -inset-9 rounded-full border border-accent/20"
+                    style={{ borderStyle: "dotted" }}
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                  />
+                  {/* glow */}
+                  <div className="absolute -inset-3 bg-gradient-to-br from-primary/40 to-accent/40 blur-2xl rounded-full animate-pulse-glow" />
+                  <div className="relative h-40 w-40 rounded-full overflow-hidden glow-border ring-2 ring-neon/40">
+                    <img src={m.img} alt={m.name} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold mb-1 relative">{m.name}</h3>
+                <div className="text-[10px] font-mono tracking-[0.3em] text-neon relative">{m.role}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="glass rounded-2xl p-6 flex items-center gap-6 relative overflow-hidden"
+          >
+            <motion.div
+              aria-hidden
+              className="absolute inset-y-0 -left-20 w-60 bg-accent/15 blur-3xl"
+              animate={{ x: [0, 40, 0] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <div className="relative shrink-0">
+              <motion.div
+                aria-hidden
+                className="absolute -inset-4 rounded-full border border-accent/40"
+                style={{ borderStyle: "dashed" }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              <div className="absolute -inset-2 bg-accent/30 blur-xl rounded-full animate-pulse-glow" />
+              <div className="relative h-20 w-20 rounded-full overflow-hidden ring-2 ring-accent/50">
+                <img src={teamSupervisor} alt="Dr. Ayat Al-Najjar" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-1">
+                <GraduationCap className="h-4 w-4 text-neon" />
+                <span className="text-[10px] font-mono tracking-[0.3em] text-neon">SUPERVISOR</span>
+              </div>
+              <h3 className="text-xl font-bold">Dr. Ayat Al-Najjar</h3>
+              <p className="text-sm text-muted-foreground">Hebron University · Faculty of IT</p>
+            </div>
+          </motion.div>
+        </div>
+      </Slide>
+
+      {/* 2. COVER */}
+      <Slide id="cover">
+        <SlideNumber n={2} total={TOTAL} />
         <div className="grid lg:grid-cols-5 gap-12 items-center">
           <div className="lg:col-span-3 space-y-8">
             <SectionLabel>Cybersecurity Research · 2026</SectionLabel>
