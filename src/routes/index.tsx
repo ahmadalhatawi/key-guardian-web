@@ -207,9 +207,9 @@ function Presentation() {
         </div>
       </Slide>
 
-      {/* 2. WHAT IS A KEYLOGGER */}
+      {/* 3. WHAT IS A KEYLOGGER */}
       <Slide id="definition">
-        <SlideNumber n={2} total={TOTAL} />
+        <SlideNumber n={3} total={TOTAL} />
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <SectionLabel>01 · Definition</SectionLabel>
@@ -255,9 +255,9 @@ function Presentation() {
         </div>
       </Slide>
 
-      {/* 3. HOW IT WORKS */}
+      {/* 4. HOW IT WORKS */}
       <Slide id="how">
-        <SlideNumber n={3} total={TOTAL} />
+        <SlideNumber n={4} total={TOTAL} />
         <div>
           <SectionLabel>02 · How it works</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -315,9 +315,9 @@ function Presentation() {
         </div>
       </Slide>
 
-      {/* 4. TYPES */}
+      {/* 5. TYPES */}
       <Slide id="types">
-        <SlideNumber n={4} total={TOTAL} />
+        <SlideNumber n={5} total={TOTAL} />
         <div>
           <SectionLabel>03 · Types</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -385,66 +385,6 @@ function Presentation() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </Slide>
-
-      {/* 5. TEAM */}
-      <Slide id="team">
-        <SlideNumber n={5} total={TOTAL} />
-        <div>
-          <SectionLabel>04 · Team</SectionLabel>
-          <h2 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            Our <span className="gradient-text">team</span>.
-          </h2>
-          <p className="text-muted-foreground text-lg mb-12">
-            Hebron University · Faculty of IT · 2026
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            {[
-              { name: "Ahmad Jum'a", role: "Developer", img: teamAhmad },
-              { name: "Ibraheem Jawabreh", role: "Developer", img: teamIbraheem },
-            ].map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.15 }}
-                className="glass rounded-2xl p-8 flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-500"
-              >
-                <div className="relative mb-5">
-                  <div className="absolute -inset-3 bg-gradient-to-br from-primary/40 to-accent/40 blur-2xl rounded-full" />
-                  <div className="relative h-40 w-40 rounded-full overflow-hidden glow-border ring-2 ring-neon/40">
-                    <img src={m.img} alt={m.name} className="w-full h-full object-cover" />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold mb-1">{m.name}</h3>
-                <div className="text-[10px] font-mono tracking-[0.3em] text-neon">{m.role}</div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="glass rounded-2xl p-6 flex items-center gap-6"
-          >
-            <div className="relative shrink-0">
-              <div className="absolute -inset-2 bg-accent/30 blur-xl rounded-full" />
-              <div className="relative h-20 w-20 rounded-full overflow-hidden ring-2 ring-accent/50">
-                <img src={teamSupervisor} alt="Dr. Ayat Al-Najjar" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <GraduationCap className="h-4 w-4 text-neon" />
-                <span className="text-[10px] font-mono tracking-[0.3em] text-neon">SUPERVISOR</span>
-              </div>
-              <h3 className="text-xl font-bold">Dr. Ayat Al-Najjar</h3>
-              <p className="text-sm text-muted-foreground">Hebron University · Faculty of IT</p>
-            </div>
-          </motion.div>
         </div>
       </Slide>
 
